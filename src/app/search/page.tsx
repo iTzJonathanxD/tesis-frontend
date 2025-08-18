@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useServices } from '@/hooks/useServices';
 import { useCategories } from '@/hooks/useCategories';
@@ -22,7 +22,7 @@ import {
 import { AdvancedSearchFilters, Service } from '@/types';
 import Link from 'next/link';
 
-export default function SearchPage() {
+function SearchContent() {
   const searchParams = useSearchParams();
   const { advancedSearch } = useServices();
   const { categories } = useCategories();
@@ -495,5 +495,19 @@ export default function SearchPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
+        </div>
+      }
+    >
+      <SearchContent />
+    </Suspense>
   );
 }

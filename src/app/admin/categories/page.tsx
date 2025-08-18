@@ -1,5 +1,8 @@
 'use client';
 
+// Forzar la renderización dinámica para evitar prerenderizado
+export const dynamic = 'force-dynamic';
+
 import { useState } from 'react';
 import { useCategories } from '@/hooks/useCategories';
 import { Card } from '@/components/ui/card';

@@ -404,3 +404,6 @@ export default function AdminMetricsPage() {
     </div>
   );
 }
+
+// Forzar la renderización dinámica para evitar prerenderizado
+export const dynamic = 'force-dynamic';

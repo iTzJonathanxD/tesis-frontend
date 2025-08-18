@@ -4,14 +4,11 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
-import { AnimatedInput } from '@/components/ui/animated-input';
-import { AnimatedButton } from '@/components/ui/animated-button';
-import { AnimatedFormContainer } from '@/components/auth/animated-form-container';
-import { AnimatedLogo } from '@/components/auth/animated-logo';
-import { Eye, EyeOff, Mail, Lock, Loader2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Eye, EyeOff, Mail, Lock, Loader2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 const LoginPage = () => {
   const router = useRouter();
@@ -95,20 +92,9 @@ const LoginPage = () => {
             { id: 11, x: 35, y: 15, delay: 1.4 },
             { id: 12, x: 75, y: 75, delay: 0.9 },
           ].map((particle) => (
-            <motion.div
+            <div
               key={particle.id}
-              className="absolute w-2 h-2 bg-white/20 rounded-full"
-              animate={{
-                x: [0, 30, -20, 0],
-                y: [0, -25, 15, 0],
-                opacity: [0, 1, 0],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                delay: particle.delay,
-                ease: 'easeInOut',
-              }}
+              className="absolute w-2 h-2 bg-white/20 rounded-full animate-pulse"
               style={{
                 left: `${particle.x}%`,
                 top: `${particle.y}%`,
@@ -118,20 +104,10 @@ const LoginPage = () => {
         </div>
 
         {/* Content */}
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative z-10 flex flex-col justify-center px-12 text-white"
-        >
+        <div className="relative z-10 flex flex-col justify-center px-12 text-white">
           <div className="max-w-md">
             {/* Main Message */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="space-y-4"
-            >
+            <div className="space-y-4">
               <h2 className="text-4xl font-bold leading-tight text-white">
                 Bienvenido de vuelta
               </h2>
@@ -139,42 +115,23 @@ const LoginPage = () => {
                 Accede a la plataforma estudiantil de ULEAM y conecta con tu
                 comunidad universitaria
               </p>
-            </motion.div>
+            </div>
 
             {/* Features */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
-              className="mt-8 space-y-3"
-            >
+            <div className="mt-8 space-y-3">
               {[
                 'Servicios estudiantiles exclusivos',
                 'Red de contactos universitarios',
                 'Plataforma segura y confiable',
               ].map((feature, index) => (
-                <motion.div
-                  key={feature}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.8 + index * 0.1 }}
-                  className="flex items-center space-x-3"
-                >
-                  <motion.div
-                    animate={{ scale: [1, 1.2, 1] }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      delay: index * 0.3,
-                    }}
-                    className="w-2 h-2 bg-primary-300 rounded-full"
-                  />
+                <div key={feature} className="flex items-center space-x-3">
+                  <div className="w-2 h-2 bg-primary-300 rounded-full animate-pulse" />
                   <span className="text-white/90">{feature}</span>
-                </motion.div>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Right Side - Login Form */}
@@ -193,98 +150,109 @@ const LoginPage = () => {
 
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            animate={{
-              rotate: 360,
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-            className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-primary-100 to-primary-200 rounded-full opacity-30"
-          />
-          <motion.div
-            animate={{
-              rotate: -360,
-              scale: [1, 0.9, 1],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: 'linear',
-            }}
-            className="absolute -bottom-16 -left-16 w-32 h-32 bg-gradient-to-br from-primary-200 to-primary-300 rounded-full opacity-20"
-          />
+          <div className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-primary-100 to-primary-200 rounded-full opacity-30 animate-pulse" />
+          <div className="absolute -bottom-16 -left-16 w-32 h-32 bg-gradient-to-br from-primary-200 to-primary-300 rounded-full opacity-20 animate-pulse" />
         </div>
 
         <div className="relative z-10 w-full max-w-md">
           {/* Mobile Logo */}
           <div className="lg:hidden mb-6">
-            <AnimatedLogo
-              variant="mobile"
-              logoSrc="/logo-negro.png"
-              title="ULEAM"
-              subtitle="CONECTA"
-            />
+            <div className="text-center">
+              <Image
+                src="/logo-negro.png"
+                alt="ULEAM Logo"
+                width={60}
+                height={60}
+                className="mx-auto mb-2"
+              />
+              <div>
+                <h1 className="text-2xl font-bold text-gray-800">ULEAM</h1>
+                <p className="text-sm text-gray-600">CONECTA</p>
+              </div>
+            </div>
           </div>
 
           {/* Desktop Logo */}
           <div className="hidden lg:block mb-6">
-            <AnimatedLogo
-              variant="desktop"
-              logoSrc="/logo-negro.png"
-              title="ULEAM"
-              subtitle="CONECTA"
-            />
+            <div className="text-center">
+              <Image
+                src="/logo-negro.png"
+                alt="ULEAM Logo"
+                width={80}
+                height={80}
+                className="mx-auto mb-4"
+              />
+              <div>
+                <h1 className="text-3xl font-bold text-gray-800">ULEAM</h1>
+                <p className="text-lg text-gray-600">CONECTA</p>
+              </div>
+            </div>
           </div>
 
-          <AnimatedFormContainer>
+          <div className="w-full max-w-md space-y-8">
             {/* Welcome Message for Desktop */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              className="hidden lg:block text-center mb-4"
-            >
+            <div className="hidden lg:block text-center mb-4">
               <h2 className="text-xl font-bold text-gray-800">
                 Bienvenido de vuelta
               </h2>
               <p className="text-gray-600 mt-1 text-sm">
                 Inicia sesión en tu cuenta
               </p>
-            </motion.div>
+            </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Email Input */}
-              <AnimatedInput
-                type="email"
-                name="email"
-                label="Correo electrónico"
-                placeholder="tu.email@uleam.edu.ec"
-                value={formData.email}
-                onChange={handleChange}
-                error={errors.email}
-                icon={<Mail className="h-5 w-5" />}
-                autoComplete="email"
-              />
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Correo electrónico
+                </label>
+                <div className="relative">
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="tu.email@uleam.edu.ec"
+                    className="pl-10"
+                    autoComplete="email"
+                  />
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+                </div>
+                {errors.email && (
+                  <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                )}
+              </div>
 
               {/* Password Input */}
-              <AnimatedInput
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                label="Contraseña"
-                placeholder="Ingresa tu contraseña"
-                value={formData.password}
-                onChange={handleChange}
-                error={errors.password}
-                icon={<Lock className="h-5 w-5" />}
-                rightIcon={
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Contraseña
+                </label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    name="password"
+                    type={showPassword ? 'text' : 'password'}
+                    required
+                    value={formData.password}
+                    onChange={handleChange}
+                    placeholder="Ingresa tu contraseña"
+                    className="pl-10 pr-10"
+                    autoComplete="current-password"
+                  />
+                  <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="text-gray-400 hover:text-primary-600 transition-colors duration-200"
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-primary-600 transition-colors duration-200"
                   >
                     {showPassword ? (
                       <EyeOff className="h-5 w-5" />
@@ -292,17 +260,14 @@ const LoginPage = () => {
                       <Eye className="h-5 w-5" />
                     )}
                   </button>
-                }
-                autoComplete="current-password"
-              />
+                </div>
+                {errors.password && (
+                  <p className="mt-1 text-sm text-red-600">{errors.password}</p>
+                )}
+              </div>
 
               {/* Remember & Forgot Password */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5, duration: 0.5 }}
-                className="flex items-center justify-between"
-              >
+              <div className="flex items-center justify-between">
                 <label className="flex items-center space-x-3 cursor-pointer group">
                   <input
                     type="checkbox"
@@ -312,29 +277,19 @@ const LoginPage = () => {
                     Recordarme
                   </span>
                 </label>
-                <motion.div whileHover={{ scale: 1.05 }}>
+                <div>
                   <Link
                     href="/auth/forgot-password"
                     className="text-sm text-primary-600 hover:text-primary-700 font-medium hover:underline transition-all duration-300"
                   >
                     ¿Olvidaste tu contraseña?
                   </Link>
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
 
               {/* Submit Button */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-              >
-                <AnimatedButton
-                  type="submit"
-                  size="lg"
-                  loading={loading}
-                  disabled={loading}
-                  className="w-full"
-                >
+              <div>
+                <Button type="submit" disabled={loading} className="w-full">
                   {loading ? (
                     <>
                       <Loader2 className="mr-2 h-5 w-5 animate-spin" />
@@ -346,49 +301,36 @@ const LoginPage = () => {
                       Iniciar Sesión
                     </>
                   )}
-                </AnimatedButton>
-              </motion.div>
+                </Button>
+              </div>
             </form>
 
             {/* Divider */}
-            <motion.div
-              initial={{ opacity: 0, scaleX: 0 }}
-              animate={{ opacity: 1, scaleX: 1 }}
-              transition={{ delay: 0.7, duration: 0.5 }}
-              className="relative my-6"
-            >
+            <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-200"></div>
               </div>
               <div className="relative flex justify-center text-sm">
                 <span className="px-4 bg-white text-gray-500">o</span>
               </div>
-            </motion.div>
+            </div>
 
             {/* Sign Up Link */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.8, duration: 0.5 }}
-              className="text-center space-y-3"
-            >
+            <div className="text-center space-y-3">
               <p className="text-sm text-gray-600">
                 ¿No tienes una cuenta?{' '}
-                <motion.span
-                  whileHover={{ scale: 1.05 }}
-                  className="inline-block"
-                >
+                <span className="inline-block">
                   <Link
                     href="/auth/register"
                     className="text-primary-600 hover:text-primary-700 font-semibold hover:underline transition-all duration-300"
                   >
                     Regístrate aquí
                   </Link>
-                </motion.span>
+                </span>
               </p>
 
               {/* Back to Home */}
-              <motion.div whileHover={{ x: -5 }}>
+              <div>
                 <Link
                   href="/"
                   className="inline-flex items-center text-sm text-gray-500 hover:text-primary-600 transition-all duration-300 group"
@@ -398,9 +340,9 @@ const LoginPage = () => {
                   </span>
                   <span className="ml-1">Volver al inicio</span>
                 </Link>
-              </motion.div>
-            </motion.div>
-          </AnimatedFormContainer>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

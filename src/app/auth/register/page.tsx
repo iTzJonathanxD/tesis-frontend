@@ -4,24 +4,12 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
 import { useAuth } from '@/context/AuthContext';
 import { useFaculties, useCareers } from '@/hooks/useAcademic';
-import { AnimatedInput } from '@/components/ui/animated-input';
-import { AnimatedButton } from '@/components/ui/animated-button';
-import { AnimatedSelect } from '@/components/ui/animated-select';
-import { AnimatedFormContainer } from '@/components/auth/animated-form-container';
-import { AnimatedLogo } from '@/components/auth/animated-logo';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Faculty, Career } from '@/types';
-import {
-  Eye,
-  EyeOff,
-  Loader2,
-  User,
-  Mail,
-  Lock,
-  GraduationCap,
-} from 'lucide-react';
+import { Eye, EyeOff, Loader2 } from 'lucide-react';
 import { isUleamEmail, validatePassword } from '@/lib/utils';
 
 const RegisterPage = () => {

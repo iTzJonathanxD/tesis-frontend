@@ -113,8 +113,8 @@ export const validateSocialNetworks = (socialNetworks: {
 
 // Form validation helper
 export const validateForm = (
-  data: any,
-  rules: { [key: string]: (value: any) => string | null }
+  data: Record<string, unknown>,
+  rules: { [key: string]: (value: unknown) => string | null }
 ): { [key: string]: string | null } => {
   const errors: { [key: string]: string | null } = {};
 

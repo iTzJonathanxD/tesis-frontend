@@ -1,5 +1,7 @@
 'use client';
 
+import { unstable_noStore as noStore } from 'next/cache';
+
 import { useState } from 'react';
 import { useServices } from '@/hooks/useServices';
 import { Card } from '@/components/ui/card';
@@ -20,6 +22,8 @@ import { Service } from '@/types';
 import { toast } from 'sonner';
 
 export default function AdminServicesPage() {
+  noStore(); // Prevenir caching y forzar renderizado dinámico
+
   const {
     getServices,
     deleteService,

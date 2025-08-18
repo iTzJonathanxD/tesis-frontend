@@ -17,8 +17,11 @@ import {
   Eye,
 } from 'lucide-react';
 import Link from 'next/link';
+import { unstable_noStore as noStore } from 'next/cache';
 
 export default function AdminDashboard() {
+  noStore(); // Prevenir caching y forzar renderizado dinámico
+
   const { users, isLoading: usersLoading } = useUsers();
   const { getServices } = useServices();
   const { orders, total: ordersTotal } = useOrders();
@@ -196,11 +199,12 @@ export default function AdminDashboard() {
             <h3 className="text-lg font-semibold text-gray-900">
               Estudiantes Recientes
             </h3>
-            <Link href="/admin/users">
-              <Button variant="outline" size="sm">
-                <Eye className="h-4 w-4 mr-2" />
-                Ver Todos
-              </Button>
+            <Link
+              href="/admin/users"
+              className="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm leading-5 font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              <Eye className="h-4 w-4 mr-2" />
+              Ver Todos
             </Link>
           </div>
           <div className="space-y-4">
@@ -256,11 +260,12 @@ export default function AdminDashboard() {
             <h3 className="text-lg font-semibold text-gray-900">
               Servicios Populares
             </h3>
-            <Link href="/services">
-              <Button variant="outline" size="sm">
-                <BookOpen className="h-4 w-4 mr-2" />
-                Ver Todos
-              </Button>
+            <Link
+              href="/services"
+              className="inline-flex items-center px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm leading-5 font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              <BookOpen className="h-4 w-4 mr-2" />
+              Ver Todos
             </Link>
           </div>
           <div className="space-y-4">
@@ -325,32 +330,39 @@ export default function AdminDashboard() {
           Acciones Rápidas
         </h3>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <Link href="/admin/users">
-            <Button variant="outline" className="w-full justify-start">
-              <Users className="h-4 w-4 mr-2" />
-              Gestionar Usuarios
-            </Button>
+          <Link
+            href="/admin/users"
+            className="w-full flex items-center justify-start px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            <Users className="h-4 w-4 mr-2" />
+            Gestionar Usuarios
           </Link>
-          <Link href="/admin/uploads">
-            <Button variant="outline" className="w-full justify-start">
-              <Package className="h-4 w-4 mr-2" />
-              Revisar Servicios
-            </Button>
+          <Link
+            href="/admin/uploads"
+            className="w-full flex items-center justify-start px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            <Package className="h-4 w-4 mr-2" />
+            Revisar Servicios
           </Link>
-          <Link href="/admin/metrics">
-            <Button variant="outline" className="w-full justify-start">
-              <TrendingUp className="h-4 w-4 mr-2" />
-              Ver Métricas
-            </Button>
+          <Link
+            href="/admin/metrics"
+            className="w-full flex items-center justify-start px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            <TrendingUp className="h-4 w-4 mr-2" />
+            Ver Métricas
           </Link>
-          <Link href="/services">
-            <Button variant="outline" className="w-full justify-start">
-              <Eye className="h-4 w-4 mr-2" />
-              Ver Plataforma
-            </Button>
+          <Link
+            href="/services"
+            className="w-full flex items-center justify-start px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            <Eye className="h-4 w-4 mr-2" />
+            Ver Plataforma
           </Link>
         </div>
       </Card>
     </div>
   );
 }
+
+// Forzar la renderización dinámica para evitar prerenderizado
+export const dynamic = 'force-dynamic';

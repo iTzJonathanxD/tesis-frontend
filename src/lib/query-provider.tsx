@@ -7,13 +7,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000, 
-      gcTime: 10 * 60 * 1000, 
-      retry: (failureCount, error: any) => {
+      staleTime: 5 * 60 * 1000,
+      gcTime: 10 * 60 * 1000,
+      retry: (failureCount, error: unknown) => {
         if (
-          error?.statusCode >= 400 &&
-          error?.statusCode < 500 &&
-          ![408, 429].includes(error?.statusCode)
+          (error as any)?.statusCode >= 400 &&
+          (error as any)?.statusCode < 500 &&
+          ![408, 429].includes((error as any)?.statusCode)
         ) {
           return false;
         }
@@ -22,9 +22,12 @@ const queryClient = new QueryClient({
       refetchOnWindowFocus: false,
     },
     mutations: {
-      retry: (failureCount, error: any) => {
+      retry: (failureCount, error: unknown) => {
         // Don't retry mutations on client errors
-        if (error?.statusCode >= 400 && error?.statusCode < 500) {
+        if (
+          (error as any)?.statusCode >= 400 &&
+          (error as any)?.statusCode < 500
+        ) {
           return false;
         }
         return failureCount < 2;

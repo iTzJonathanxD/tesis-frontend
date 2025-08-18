@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { unstable_noStore as noStore } from 'next/cache';
 import { useUsers } from '@/hooks/useUsers';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -20,6 +21,8 @@ import { AdminUser } from '@/types';
 import { toast } from 'sonner';
 
 export default function AdminUsersPage() {
+  noStore(); // Prevenir caching y forzar renderizado dinámico
+
   const {
     users,
     verifyUser,

@@ -376,6 +376,6 @@ export interface Notification {
   title: string;
   message: string;
   isRead: boolean;
-  data?: any;
+  data?: Record<string, unknown>;
   createdAt: string;
 }

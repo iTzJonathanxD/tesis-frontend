@@ -1,5 +1,8 @@
 'use client';
 
+// Forzar la renderización dinámica para evitar prerenderizado
+export const dynamic = 'force-dynamic';
+
 import { useState } from 'react';
 import { useReviews } from '@/hooks/useReviews';
 import { Card } from '@/components/ui/card';
@@ -159,7 +162,11 @@ export default function AdminReviewsPage() {
                 variant={
                   filterRating === rating.toString() ? 'default' : 'outline'
                 }
-                onClick={() => setFilterRating(rating.toString() as any)}
+                onClick={() =>
+                  setFilterRating(
+                    rating.toString() as '1' | '2' | '3' | '4' | '5'
+                  )
+                }
                 size="sm"
                 className="flex items-center"
               >

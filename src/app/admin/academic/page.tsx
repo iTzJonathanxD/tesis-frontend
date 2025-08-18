@@ -1,5 +1,8 @@
 'use client';
 
+// Forzar la renderización dinámica para evitar prerenderizado
+export const dynamic = 'force-dynamic';
+
 import { useState } from 'react';
 import { useAcademic } from '@/hooks/useAcademic';
 import { Card } from '@/components/ui/card';
@@ -100,7 +103,7 @@ export default function AdminAcademicPage() {
             name: formData.name,
             description: formData.description,
             facultyId: formData.facultyId,
-            isActive: true
+            isActive: true,
           });
           toast.success('Carrera creada exitosamente');
         }
