@@ -6,6 +6,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { Service } from '@/types';
 import {
   ArrowLeft,
   Plus,
@@ -34,7 +35,7 @@ const MyServices = () => {
 
   const servicesArray = Array.isArray(services) ? services : [];
 
-  const filteredServices = servicesArray.filter((service: any) => {
+  const filteredServices = servicesArray.filter((service: Service) => {
     const matchesSearch =
       service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       service.description.toLowerCase().includes(searchTerm.toLowerCase());
@@ -235,7 +236,7 @@ const MyServices = () => {
           </motion.div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredServices.map((service: any, index: number) => (
+            {filteredServices.map((service: Service, index: number) => (
               <motion.div
                 key={service._id}
                 initial={{ opacity: 0, y: 20 }}
@@ -376,14 +377,18 @@ const MyServices = () => {
                   </div>
                   <div>
                     <p className="text-2xl font-bold text-green-600">
-                      {services.filter((s: any) => s.isActive === true).length}
+                      {
+                        services.filter((s: Service) => s.isActive === true)
+                          .length
+                      }
                     </p>
                     <p className="text-sm text-gray-600">Servicios activos</p>
                   </div>
                   <div>
                     <p className="text-2xl font-bold text-yellow-600">
                       {services.reduce(
-                        (acc: number, s: any) => acc + (s.totalReviews || 0),
+                        (acc: number, s: Service) =>
+                          acc + (s.totalReviews || 0),
                         0
                       )}
                     </p>
@@ -394,7 +399,8 @@ const MyServices = () => {
                       {services.length > 0
                         ? (
                             services.reduce(
-                              (acc: number, s: any) => acc + (s.rating || 0),
+                              (acc: number, s: Service) =>
+                                acc + (s.rating || 0),
                               0
                             ) / services.length
                           ).toFixed(1)

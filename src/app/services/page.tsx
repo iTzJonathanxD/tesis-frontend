@@ -69,7 +69,10 @@ const ServicesPage = () => {
   const totalPages = servicesQuery.data?.data?.totalPages ?? 0;
   const loading = servicesQuery.isLoading;
 
-  const handleFilterChange = (key: keyof ServiceFilters, value: any) => {
+  const handleFilterChange = (
+    key: keyof ServiceFilters,
+    value: string | number
+  ) => {
     setFilters((prev) => ({
       ...prev,
       [key]: value,

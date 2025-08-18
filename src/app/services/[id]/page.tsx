@@ -90,9 +90,9 @@ export default function ServiceDetailPage() {
       });
       toast.success('Orden creada exitosamente');
       setOrderMessage('');
-    } catch (error: any) {
+    } catch (error: unknown) {
       const errorMessage =
-        error.response?.data?.message || 'Error al crear la orden';
+        (error as any).response?.data?.message || 'Error al crear la orden';
       toast.error(errorMessage);
     }
   };
@@ -119,9 +119,9 @@ export default function ServiceDetailPage() {
       if (chat?._id) {
         window.location.href = `/dashboard/chats/${chat._id}`;
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       const errorMessage =
-        error.response?.data?.message || 'Error al iniciar el chat';
+        (error as any).response?.data?.message || 'Error al iniciar el chat';
       toast.error(errorMessage);
     }
   };
@@ -154,9 +154,9 @@ export default function ServiceDetailPage() {
 
       // Refresh the can review status
       canReviewQuery.refetch();
-    } catch (error: any) {
+    } catch (error: unknown) {
       const errorMessage =
-        error.response?.data?.message || 'Error al enviar reseña';
+        (error as any).response?.data?.message || 'Error al enviar reseña';
       toast.error(errorMessage);
     }
   };

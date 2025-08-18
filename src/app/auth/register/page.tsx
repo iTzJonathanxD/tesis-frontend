@@ -12,6 +12,7 @@ import { AnimatedButton } from '@/components/ui/animated-button';
 import { AnimatedSelect } from '@/components/ui/animated-select';
 import { AnimatedFormContainer } from '@/components/auth/animated-form-container';
 import { AnimatedLogo } from '@/components/auth/animated-logo';
+import { Faculty, Career } from '@/types';
 import {
   Eye,
   EyeOff,
@@ -179,8 +180,8 @@ const RegisterPage = () => {
   // Prepare faculty options
   const facultyOptions = [
     { value: '', label: 'Selecciona tu facultad' },
-    ...(faculties?.map((faculty: any) => ({
-      value: faculty.id || faculty._id,
+    ...(faculties?.map((faculty: Faculty) => ({
+      value: faculty._id,
       label: faculty.name,
     })) || []),
   ];
@@ -188,8 +189,8 @@ const RegisterPage = () => {
   // Prepare career options
   const careerOptions = [
     { value: '', label: 'Selecciona tu carrera' },
-    ...(careers?.map((career: any) => ({
-      value: career.id || career._id,
+    ...(careers?.map((career: Career) => ({
+      value: career._id,
       label: career.name,
     })) || []),
   ];

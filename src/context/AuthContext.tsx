@@ -143,9 +143,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       await validateToken(access_token);
 
       toast.success('¡Bienvenido a ULEAM Conecta!');
-    } catch (error: any) {
+    } catch (error: unknown) {
       const message =
-        error.response?.data?.message || 'Error al iniciar sesión';
+        (error as any).response?.data?.message || 'Error al iniciar sesión';
       toast.error(message);
       throw error;
     } finally {
@@ -159,9 +159,9 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       const response = await api.post('/auth/register', data);
       toast.success('Cuenta creada exitosamente. Por favor verifica tu email.');
       return response.data;
-    } catch (error: any) {
+    } catch (error: unknown) {
       const message =
-        error.response?.data?.message || 'Error al crear la cuenta';
+        (error as any).response?.data?.message || 'Error al crear la cuenta';
       toast.error(message);
       throw error;
     } finally {

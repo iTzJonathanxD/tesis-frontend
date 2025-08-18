@@ -57,7 +57,10 @@ export default function SearchPage() {
     }
   }, [searchParams]);
 
-  const handleFilterChange = (key: keyof AdvancedSearchFilters, value: any) => {
+  const handleFilterChange = (
+    key: keyof AdvancedSearchFilters,
+    value: string | number
+  ) => {
     setFilters((prev) => ({ ...prev, [key]: value, page: 1 }));
   };
 
